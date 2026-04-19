@@ -102,9 +102,9 @@ export default function Forms(props) {
 
   const total = planPrice + addonsTotal;
 
-  console.log(planPrice);
-  console.log(addonsTotal);
-  console.log(total);
+  // console.log(planPrice);
+  // console.log(addonsTotal);
+  // console.log(total);
 
   // console.log(props);
   return (

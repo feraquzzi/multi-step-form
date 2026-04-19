@@ -23,6 +23,7 @@ export default function App() {
     billing: "monthly",
   });
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
 
   function handleChange(e) {
@@ -72,16 +73,15 @@ export default function App() {
     }
   }
 
-  //this is where i submit my form data
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-
-  //   setIsCompleted(true);
-  //   console.log(formData);
-  // }
+  // useEffect(() => {
+  //   if (isCompleted) {
+  //     toast.success("Submitted!");
+  //   }
+  // }, [isCompleted]);
 
   const handleSubmit = async () => {
     try {
+      setIsSubmitting(true);
       const res = await fetch("http://10.243.72.69:8080/api/user", {
         method: "POST",
         headers: {
@@ -107,6 +107,8 @@ export default function App() {
       } else {
         toast.error(error.message || "Submission failed");
       }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -143,6 +145,7 @@ export default function App() {
             handleNext={handleNext}
             handlePrevious={handlePrevious}
             isCompleted={isCompleted}
+            isSubmitting={isSubmitting}
           />
         </div>
       </div>
