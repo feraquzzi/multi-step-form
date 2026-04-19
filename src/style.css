@@ -56,12 +56,6 @@ body {
   }
 }
 
-.toast {
-  position: absolute;
-  top: 0;
-  left: 1000px;
-}
-
 .formWrap {
   width: 95%;
   height: 85vh;

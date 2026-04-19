@@ -113,21 +113,37 @@ export default function App() {
     }
   };
 
+  const isMobile = window.innerWidth <= 768;
+
   return (
     <div className="App">
       <div className="formWrap">
         <Toaster
           position="top-right"
-          toastOptions={{
-            duration: 3000,
-            style: {
-              borderRadius: "8px",
-              fontSize: "14px",
-            },
-          }}
           containerStyle={{
-            top: 60,
-            right: 280,
+            top: isMobile ? 100 : 60,
+            right: isMobile ? 50 : 280,
+          }}
+          toastOptions={{
+            duration: 4000,
+            style: {
+              borderRadius: "10px",
+              fontSize: "14px",
+              padding: "14px 18px",
+              background: "#1f2937",
+              color: "#16a34a",
+            },
+            success: {
+              style: {
+                background: "#fff",
+              },
+            },
+            error: {
+              style: {
+                color: "#fff",
+                background: "#dc2626",
+              },
+            },
           }}
         />
         <Steppers step={step} active={active} />
