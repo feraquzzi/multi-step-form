@@ -10,6 +10,7 @@ import (
 
 	_ "github.com/godror/godror"
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 )
 
 func main() {
@@ -22,6 +23,14 @@ func main() {
 	router := mux.NewRouter()
 
 	api.RegisterRoutes(router, userHandler)
+
+	
+	corsHandler := cors.New(cors.Options{
+		AllowedOrigins: []string{"http://localhost:3000"},
+		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders: []string{"Content-Type", "Authorization"},
+	}).Handler(router)
+
 	log.Println("Server is running on port 8080...")
-	log.Fatal(http.ListenAndServe(":8080", router))
+	log.Fatal(http.ListenAndServe(":8080", corsHandler))
 }
