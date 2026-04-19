@@ -1,4 +1,6 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import Steppers from "./components/Steppers";
 import FormBtn from "./components/FormBtn";
 import Forms from "./components/Forms";
@@ -88,19 +90,30 @@ export default function App() {
         body: JSON.stringify(formData),
       });
 
+      if (!res.ok) {
+        throw new Error("Something went wrong!");
+      }
+
       const data = await res.json();
       console.log(data);
 
-      //shows thankYou page
       setIsCompleted(true);
+      toast.success("Submitted successfully!");
     } catch (error) {
       console.error("Error:", error);
+
+      if (error.message === "Failed to fetch") {
+        toast.error("Cannot connect to server");
+      } else {
+        toast.error(error.message || "Submission failed");
+      }
     }
   };
 
   return (
     <div className="App">
       <div className="formWrap">
+        <Toaster />
         <Steppers step={step} active={active} />
         <div className="form">
           <div className="onlyForm">
