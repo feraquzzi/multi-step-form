@@ -2,7 +2,6 @@ import { useState } from "react";
 import Steppers from "./components/Steppers";
 import FormBtn from "./components/FormBtn";
 import Forms from "./components/Forms";
-import ThankYou from "./components/ThankYou";
 
 export default function App() {
   const [step, setStep] = useState(1);
