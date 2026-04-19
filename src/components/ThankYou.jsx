@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 
-export default function ThankYou(props) {
+export default function ThankYou({ isCompleted }) {
   return (
     <div>
-      {props.isCompleted ? (
+      {isCompleted ? (
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
