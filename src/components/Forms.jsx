@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import ThankYou from "./ThankYou";
 
 export default function Forms(props) {
   const [isYearly, setIsYearly] = useState(false);
@@ -348,8 +347,6 @@ export default function Forms(props) {
                 </span>
               </motion.div>
             </div>
-
-            <ThankYou isCompleted={props.isCompleted} />
           </>
         )}
       </form>
