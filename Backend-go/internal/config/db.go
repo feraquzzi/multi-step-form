@@ -9,7 +9,7 @@ import (
 
 var DB *sql.DB
 
-func ConnectDB() error {
+func ConnectDB() error{
 	var err error
 
 	dsn := "king/king123@localhost:1521/xepdb1"
@@ -18,12 +18,12 @@ func ConnectDB() error {
 	if err != nil {
 		log.Fatal("Failed to Connect to the database", err)
 		return err
-	}
+	}	
 
 	err = DB.Ping()
 	if err != nil {
 		log.Fatal("Failed to Ping to the database", err)
-		return err
+	return err
 	}
 
 	return nil
