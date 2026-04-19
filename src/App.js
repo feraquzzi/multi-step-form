@@ -2,6 +2,7 @@ import { useState } from "react";
 import Steppers from "./components/Steppers";
 import FormBtn from "./components/FormBtn";
 import Forms from "./components/Forms";
+import ThankYou from "./components/ThankYou";
 
 export default function App() {
   const [step, setStep] = useState(1);
@@ -71,12 +72,32 @@ export default function App() {
   }
 
   //this is where i submit my form data
-  function handleSubmit(e) {
-    e.preventDefault();
+  // function handleSubmit(e) {
+  //   e.preventDefault();
 
-    setIsCompleted(true);
-    console.log(formData);
-  }
+  //   setIsCompleted(true);
+  //   console.log(formData);
+  // }
+
+  const handleSubmit = async () => {
+    try {
+      const res = await fetch("http://localhost:8080/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      console.log(data);
+
+      //shows thankYou page
+      setIsCompleted(true);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   return (
     <div className="App">
@@ -96,6 +117,7 @@ export default function App() {
               isCompleted={isCompleted}
             />
           </div>
+
           <FormBtn
             forms={forms}
             next={next}
