@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 import Steppers from "./components/Steppers";
 import FormBtn from "./components/FormBtn";
 import Forms from "./components/Forms";
+import ThankYou from "./components/ThankYou";
 
 export default function App() {
   const [step, setStep] = useState(1);
@@ -97,8 +98,8 @@ export default function App() {
       const data = await res.json();
       console.log(data);
 
-      setIsCompleted(true);
       toast.success("Submitted successfully!");
+      setIsCompleted(true);
     } catch (error) {
       console.error("Error:", error);
 
@@ -112,24 +113,58 @@ export default function App() {
     }
   };
 
+  const isMobile = window.innerWidth <= 768;
+
   return (
     <div className="App">
       <div className="formWrap">
-        <Toaster />
+        <Toaster
+          position="top-right"
+          containerStyle={{
+            top: isMobile ? 100 : 60,
+            right: isMobile ? 50 : 280,
+          }}
+          toastOptions={{
+            duration: 4000,
+            style: {
+              borderRadius: "10px",
+              fontSize: "14px",
+              padding: "14px 18px",
+              background: "#1f2937",
+              color: "#16a34a",
+            },
+            success: {
+              style: {
+                background: "#fff",
+              },
+            },
+            error: {
+              style: {
+                color: "#fff",
+                background: "#dc2626",
+              },
+            },
+          }}
+        />
         <Steppers step={step} active={active} />
         <div className="form">
           <div className="onlyForm">
-            <Forms
-              form={forms}
-              formData={formData}
-              handleChange={handleChange}
-              setFormData={setFormData}
-              handleNext={handleNext}
-              handlePrevious={handlePrevious}
-              errors={errors}
-              setErrors={setErrors}
-              isCompleted={isCompleted}
-            />
+            {!isCompleted ? (
+              <Forms
+                form={forms}
+                formData={formData}
+                handleChange={handleChange}
+                setFormData={setFormData}
+                handleNext={handleNext}
+                handlePrevious={handlePrevious}
+                errors={errors}
+                setErrors={setErrors}
+                isCompleted={isCompleted}
+                isSubmitting={isSubmitting}
+              />
+            ) : (
+              <ThankYou />
+            )}
           </div>
 
           <FormBtn
