@@ -83,13 +83,16 @@ export default function App() {
   const handleSubmit = async () => {
     try {
       setIsSubmitting(true);
-      const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        "https://reanalyze-backache-purchase.ngrok-free.dev/api/user",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
         },
-        body: JSON.stringify(formData),
-      });
+      );
 
       if (!res.ok) {
         throw new Error("Something went wrong!");
