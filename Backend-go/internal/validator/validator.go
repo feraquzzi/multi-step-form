@@ -10,23 +10,23 @@ func ValidateInputData(user *models.InputData) error {
 		return errors.New("User Cannot be nil")
 	}
 
-	if user.Name == " " {
+	if user.Name == "" {
 		return errors.New("Names cannot be empty")
 	}
 
-	if user.Email == " " {
+	if user.Email == "" {
 		return errors.New("Email cannot be empty")
 	}
 
-	if user.Phone == " " {
+	if user.Phone == "" {
 		return errors.New("Phone is required")
 	}
 
-	if user.Plan == " " {
+	if user.Plan == "" {
 		return errors.New("Plan is required")
 	}
 
-	if user.Billing == " " {
+	if user.Billing == "" {
 		return errors.New("Billing is required")
 	}
 

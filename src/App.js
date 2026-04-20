@@ -82,7 +82,7 @@ export default function App() {
   const handleSubmit = async () => {
     try {
       setIsSubmitting(true);
-      const res = await fetch("http://10.243.72.69:8080/api/user", {
+      const res = await fetch("http://localhost:8080/api/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
