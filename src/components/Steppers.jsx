@@ -3,7 +3,9 @@ export default function Steppers(props) {
     <div className="stepper">
       <div className="steps">
         <div className="eachStepper">
-          <div className={`stepNum ${props.step === 1 ? props.active : ""}`}>
+          <div
+            className={`stepNum ${props.step === 1 ? props.active : ""} w-10 h-10 rounded-full`}
+          >
             1
           </div>
           <div
@@ -15,13 +17,17 @@ export default function Steppers(props) {
               fontSize: "13px",
             }}
           >
-            <p style={{ color: "rgba(255,255,255,0.6)" }}>STEP 1</p>
+            <p className="bg-red" style={{ color: "rgba(255,255,255,0.6)" }}>
+              STEP 1
+            </p>
             <span style={{ color: "#fff", fontWeight: "700" }}>YOUR INFO</span>
           </div>
         </div>
 
         <div className="eachStepper">
-          <div className={`stepNum ${props.step === 2 ? props.active : ""}`}>
+          <div
+            className={`stepNum ${props.step === 2 ? props.active : ""}  w-10 h-10 rounded-full`}
+          >
             2
           </div>
           <div
@@ -41,7 +47,9 @@ export default function Steppers(props) {
         </div>
 
         <div className="eachStepper">
-          <div className={`stepNum ${props.step === 3 ? props.active : ""}`}>
+          <div
+            className={`stepNum ${props.step === 3 ? props.active : ""}  w-10 h-10 rounded-full`}
+          >
             3
           </div>
           <div
@@ -59,7 +67,9 @@ export default function Steppers(props) {
         </div>
 
         <div className="eachStepper">
-          <div className={`stepNum ${props.step === 4 ? props.active : ""}`}>
+          <div
+            className={`stepNum ${props.step === 4 ? props.active : ""}  w-10 h-10 rounded-full`}
+          >
             4
           </div>
           <div
