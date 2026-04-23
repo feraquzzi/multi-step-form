@@ -22,6 +22,7 @@ export default function App() {
       profile: false,
     },
     billing: "monthly",
+    total: 0
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
