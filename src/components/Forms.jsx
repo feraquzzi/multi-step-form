@@ -380,6 +380,18 @@ export default function Forms(props) {
                         </span>
                       </div>
                     ))}
+
+                  <>
+                    {Object.values(props.formData.addons).every(
+                      (addon) => addon === false,
+                    ) ? (
+                      <p style={{ marginBottom: "20px" }}>
+                        No add-ons selected
+                      </p>
+                    ) : (
+                      <p></p>
+                    )}
+                  </>
                 </div>
               </motion.div>
 
