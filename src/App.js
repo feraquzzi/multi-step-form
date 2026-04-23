@@ -25,6 +25,7 @@ export default function App() {
     total: 0
   });
   const [errors, setErrors] = useState({});
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
 
@@ -46,23 +47,55 @@ export default function App() {
     setIsCompleted(false);
   }
 
+  // function handleNext(e) {
+  //   const newErrors = {};
+  //   const { name, value } = e.target;
+
+  //   if (!formData.name.trim()) {
+  //     newErrors.name = "Name can be empty";
+  //   }
+
+  //   // if (!formData.email.trim()) {
+  //   //   newErrors.email = "Email is required";
+  //   // } else if (!formData.email.includes("@")) {
+  //   //   newErrors.email = "Invalid email, must include @";
+  //   // }
+
+  //   if (name === "email") {
+  //     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())) {
+  //       newErrors.email = "Invalid email address";
+  //     }
+  //   }
+
+  //   if (!formData.phone.trim()) {
+  //     newErrors.phone = "Phone number cannot be empty";
+  //   } else if (formData.phone.length < 11) {
+  //     newErrors.phone = "Must be at least 12 characters long";
+  //   }
+
+  //   setErrors(newErrors);
+
+  //   if (Object.keys(newErrors).length === 0) {
+
+  //   }
+  // }
+
   function handleNext() {
-    const newErrors = {};
+    let newErrors = {};
 
-    if (!formData.name.trim()) {
-      newErrors.name = "Name can be empty";
+    // Name validation
+    if (!/^[A-Za-z]+([ '-][A-Za-z]+)*$/.test(formData.name.trim())) {
+      newErrors.name = "Wrong name format";
     }
 
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!formData.email.includes("@")) {
-      newErrors.email = "Invalid email, must include @";
+    // Email validation
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+      newErrors.email = "Invalid email address";
     }
 
-    if (!formData.phone.trim()) {
-      newErrors.phone = "Phone number cannot be empty";
-    } else if (formData.phone.length < 11) {
-      newErrors.phone = "Must be at least 12 characters long";
+    // Phone validation
+    if (!/^\+?[0-9]{10,14}$/.test(formData.phone.trim())) {
+      newErrors.phone = "Invalid phone number";
     }
 
     setErrors(newErrors);
@@ -75,22 +108,19 @@ export default function App() {
     }
   }
 
-  // useEffect(() => {
-  //   if (isCompleted) {
-  //     toast.success("Submitted!");
-  //   }
-  // }, [isCompleted]);
-
   const handleSubmit = async () => {
     try {
       setIsSubmitting(true);
-      const res = await fetch("http://localhost:8080/api/user", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        "https://reanalyze-backache-purchase.ngrok-free.dev/api/user",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
         },
-        body: JSON.stringify(formData),
-      });
+      );
 
       if (!res.ok) {
         throw new Error("Something went wrong!");

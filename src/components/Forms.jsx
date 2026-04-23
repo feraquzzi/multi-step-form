@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 
 export default function Forms(props) {
   const [isYearly, setIsYearly] = useState(false);
+  const [error, setError] = useState({});
+  const [shake, setShake] = useState({});
   const hasError = (field) => props.errors[field]?.trim();
 
   const plans = [
@@ -59,6 +61,45 @@ export default function Forms(props) {
     },
   ];
 
+  function handleBlur(e) {
+    const { name, value } = e.target;
+    let error = "";
+
+    // Validation
+    if (name === "name") {
+      if (!/^[A-Za-z]+([ '-][A-Za-z]+)*$/.test(value.trim())) {
+        error = "Wrong Name Format";
+      }
+    }
+
+    if (name === "email") {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())) {
+        error = "Invalid email";
+      }
+    }
+
+    if (name === "phone") {
+      if (!/^\+?[0-9]{10,14}$/.test(value.trim())) {
+        error = "Invalid phone number";
+      }
+    }
+
+    // Set error
+    setError((prev) => ({
+      ...prev,
+      [name]: error,
+    }));
+
+    // Trigger shake if error exists
+    if (error) {
+      setShake((prev) => ({ ...prev, [name]: false }));
+
+      setTimeout(() => {
+        setShake((prev) => ({ ...prev, [name]: true }));
+      }, 10);
+    }
+  }
+
   const isYear = props.formData.billing === "yearly";
 
   function handleSelect(plan) {
@@ -86,8 +127,6 @@ export default function Forms(props) {
     }));
   }
 
-  // const isYearly = props.formData.billing === "yearly";
-
   const selectedPlan = plans.find((p) => p.key === props.formData.plan);
 
   const planPrice = selectedPlan?.price || 0;
@@ -101,11 +140,6 @@ export default function Forms(props) {
 
   const total = planPrice + addonsTotal;
 
-  // console.log(planPrice);
-  // console.log(addonsTotal);
-  // console.log(total);
-
-  // console.log(props);
   return (
     <>
       <form className={`allForms ${props.isCompleted ? "noForm" : "showForm"}`}>
@@ -129,41 +163,50 @@ export default function Forms(props) {
                   <label className="inputTop">Name</label>
 
                   <input
-                    className={`${hasError("name") ? "runa" : " "}`}
+                    className={`input ${error.name ? "error" : ""} ${
+                      shake.name ? "shake" : ""
+                    } ${hasError("name") ? "runa" : " "}`}
                     type="text"
                     placeholder="e.g. Stephen King"
                     name="name"
                     value={props.formData.name}
                     onChange={props.handleChange}
+                    onBlur={handleBlur}
                   />
 
-                  <span className="formErrors">{props.errors.name}</span>
+                  <span className="formErrors">{error.name}</span>
                 </div>
 
                 <div className="form-group">
                   <label>Email Address</label>
                   <input
-                    className={`${hasError("email") ? "runa" : " "}`}
+                    className={`input ${error.email ? "error" : ""} ${
+                      shake.email ? "shake" : ""
+                    } ${hasError("email") ? "runa" : " "}`}
                     type="email"
                     placeholder="e.g. stephenking@lorem.com"
                     name="email"
                     value={props.formData.email}
                     onChange={props.handleChange}
+                    onBlur={handleBlur}
                   />
-                  <span className="formErrors">{props.errors.email}</span>
+                  <span className="formErrors">{error.email}</span>
                 </div>
 
                 <div className="form-group">
                   <label>Phone Number</label>
                   <input
-                    className={`${hasError("phone") ? "runa" : " "}`}
+                    className={`input ${error.phone ? "error" : ""} ${
+                      shake.phone ? "shake" : ""
+                    } ${hasError("phone") ? "runa" : " "}`}
                     type="tel"
                     placeholder="e.g. +1 234 567 890"
                     name="phone"
                     value={props.formData.phone}
                     onChange={props.handleChange}
+                    onBlur={handleBlur}
                   />
-                  <span className="formErrors">{props.errors.phone}</span>
+                  <span className="formErrors">{error.phone}</span>
                 </div>
               </motion.div>
             </div>
